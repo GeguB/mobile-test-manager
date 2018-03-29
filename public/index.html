@@ -1,0 +1,60 @@
+<html>
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <!-- load fontawesome -->
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
+    <script src="js/jquery-1.11.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="views/home/home.controller.js"></script>
+    <script src="services/user.services.client.js"></script>
+</head>
+<body ng-app="MobileTestManager">
+<!--<div class="site-all" style="height:100%;">-->
+<div>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-toggle="collapse">
+
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#home">Mobile Test Manager</a>
+            </div>
+            <nav>
+            <!--<nav ng-controller="NavCtrl">-->
+                <div class="navbar-collapse navbar-right collapse" style="height: 1px;">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#home">HOME</a></li>
+                        <li><a href="#home" ng-click="run_script()">RUN SCRIPT</a></li>
+                        <li class="dropdown" ng-show="currentUser">
+                            <a class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li ng-show="currentUser"><a href="#profile">PROFILE</a></li>
+                                <!--<li ng-show="currentUser.roles.indexOf('admin') != -1"><a href="#admin">Admin</a></li>-->
+                                <li ng-show="currentUser"><a href="#logout" ng-click="logout()">LOGOUT</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <br><br><br>
+    <div ng-view class="col-lg-8 col-lg-offset-2 container" id="service">
+    </div>
+
+</div>
+</body>
+</html>
