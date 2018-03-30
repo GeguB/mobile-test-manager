@@ -1,7 +1,6 @@
 var passport         = require('passport');
 var LocalStrategy    = require('passport-local').Strategy;
 var mongoose         = require("mongoose");
-var cmd = require('node-cmd');
 
 
 module.exports = function(app) {
@@ -17,21 +16,6 @@ module.exports = function(app) {
     app.get   ('/api/user',     auth, findAllUsers);
     app.put   ('/api/user/:id', auth, updateUser);
     app.delete('/api/user/:id', auth, deleteUser);
-    //Temp here. To be moved
-    app.get   ('/api/run-cmd', run_cmd);
-
-
-    passport.use(new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
-
-    function run_cmd(req, res) {
-        cmd.get('echo 1',
-            function(data){
-            console.log('the current working dir is : ',data)
-                res.json(data);
-        });
-    }
 
 
     function localStrategy(username, password, done) {
@@ -163,7 +147,7 @@ module.exports = function(app) {
         if(!isAdmin(req.user)) {
             delete newUser.roles;
         }
-        if(typeof newUser.roles == "string") {
+        if(typeof newUser.roles === "string") {
             newUser.roles = newUser.roles.split(",");
         }
 
@@ -238,10 +222,7 @@ module.exports = function(app) {
     }
 
     function isAdmin(user) {
-        if(user.roles.indexOf("admin") > 0) {
-            return true
-        }
-        return false;
+        return(user.roles.indexOf("admin") > 0)
     }
 
     function authorized (req, res, next) {
@@ -250,5 +231,5 @@ module.exports = function(app) {
         } else {
             next();
         }
-    };
-}
+    }
+};
