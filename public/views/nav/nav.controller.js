@@ -4,10 +4,11 @@
         .module("MobileTestManager")
         .controller("NavCtrl", NavCtrl);
     
-    function NavCtrl($scope, UserService, $location, $rootScope)
+    function NavCtrl($scope, UserService, CommandService, $location, $rootScope)
     {
         $scope.logout = logout;
         $scope.login = login;
+        $scope.run_script = run_script;
 
 
         function login() {
@@ -24,7 +25,7 @@
 
         }
 
-            function logout()
+        function logout()
         {
             UserService
                 .logout()
@@ -37,6 +38,11 @@
                         $scope.error = err;
                     }
                 );
+        }
+
+        function run_script() {
+            CommandService
+                .run_script();
         }
     }
 })();

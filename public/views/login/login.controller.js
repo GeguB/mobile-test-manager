@@ -17,7 +17,6 @@
                     function(response)
                     {
                         $rootScope.currentUser = response.data;
-                        console.log($rootScope.currentUser)
                         $location.url("/profile");
                     },
                     function(err) {

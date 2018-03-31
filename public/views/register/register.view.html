@@ -1,8 +1,10 @@
 <h1>Register</h1>
 
 {{error}}
+<form>
 <input  ng-model="user.username"  class="form-control" placeholder="username"/>
 <input  ng-model="user.password"  class="form-control" placeholder="password"       type="current-password"/>
 <input  ng-model="user.password2" class="form-control" placeholder="confirm password" type="new-password"/>
 <button ng-click="register(user)" class="btn btn-primary btn-block">Register</button><br/>
+</form>
 {{message}}

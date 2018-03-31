@@ -26,6 +26,11 @@
                     controller: 'RegisterCtrl',
                     controllerAs: 'model'
                 })
+                .when('/commands', {
+                    templateUrl: 'views/user-commands/user-commands.view.html',
+                    controller: 'UserCommandsCtrl',
+                    controllerAs: 'model'
+                })
                 .otherwise({
                 redirectTo: '/home'
             });
