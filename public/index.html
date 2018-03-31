@@ -14,7 +14,13 @@
     <script src="app.js"></script>
     <script src="config.js"></script>
     <script src="views/home/home.controller.js"></script>
+    <script src="views/login/login.controller.js"></script>
+    <script src="views/register/register.controller.js"></script>
+    <script src="views/profile/profile.controller.js"></script>
+    <script src="views/nav/nav.controller.js"></script>
+    <!--<script src="views/admin/admin.controller.js"></script>-->
     <script src="services/user.services.client.js"></script>
+    <script src="services/command.services.client.js"></script>
 </head>
 <body ng-app="MobileTestManager">
 <!--<div class="site-all" style="height:100%;">-->
@@ -33,10 +39,12 @@
                 <a class="navbar-brand" href="#home">Mobile Test Manager</a>
             </div>
             <nav>
-            <!--<nav ng-controller="NavCtrl">-->
+            <nav ng-controller="NavCtrl">
                 <div class="navbar-collapse navbar-right collapse" style="height: 1px;">
                     <ul class="nav navbar-nav">
                         <li><a href="#home">HOME</a></li>
+                        <li ng-show="!currentUser"><a href="#login">LOGIN</a></li>
+                        <li ng-show="!currentUser"><a href="#register">REGISTER</a></li>
                         <li><a href="#home" ng-click="run_script()">RUN SCRIPT</a></li>
                         <li class="dropdown" ng-show="currentUser">
                             <a class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<b class="caret"></b></a>

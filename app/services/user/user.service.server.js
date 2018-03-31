@@ -2,7 +2,6 @@ var passport         = require('passport');
 var LocalStrategy    = require('passport-local').Strategy;
 var mongoose         = require("mongoose");
 
-
 module.exports = function(app) {
 
     var userModel = require("../../models/user/user.model.server.js")();
@@ -17,6 +16,9 @@ module.exports = function(app) {
     app.put   ('/api/user/:id', auth, updateUser);
     app.delete('/api/user/:id', auth, deleteUser);
 
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
 
     function localStrategy(username, password, done) {
         userModel
@@ -147,7 +149,7 @@ module.exports = function(app) {
         if(!isAdmin(req.user)) {
             delete newUser.roles;
         }
-        if(typeof newUser.roles === "string") {
+        if(typeof newUser.roles == "string") {
             newUser.roles = newUser.roles.split(",");
         }
 
@@ -197,7 +199,7 @@ module.exports = function(app) {
                                     res.status(400).send(err);
                                 }
                             );
-                    // if the user already exists, then just fetch all the users
+                        // if the user already exists, then just fetch all the users
                     } else {
                         return userModel.findUserByUsername(newUser.username)
                             .then(
@@ -222,7 +224,10 @@ module.exports = function(app) {
     }
 
     function isAdmin(user) {
-        return(user.roles.indexOf("admin") > 0)
+        if(user.roles.indexOf("admin") > 0) {
+            return true
+        }
+        return false;
     }
 
     function authorized (req, res, next) {
@@ -231,5 +236,5 @@ module.exports = function(app) {
         } else {
             next();
         }
-    }
-};
+    };
+}
