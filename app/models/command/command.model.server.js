@@ -12,7 +12,7 @@ module.exports = function() {
             stdout: String,
             stderr: String,
             finishDate: Date
-        });
+        }, {collection: "command"});
 
     var CommandModel = mongoose.model('CommandModel', CommandSchema);
 

@@ -9,8 +9,8 @@
         };
         return api;
 
-        function run_script() {
-            return $http.get('/api/run-cmd');
+        function run_script(command) {
+            return $http.post('/api/run-cmd', command);
         }
 
         function authorized(req, res, next) {

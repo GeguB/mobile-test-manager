@@ -5,6 +5,17 @@
 <div class="alert alert-danger" ng-show="error">
     {{error}}
 </div>
-<div>
-    <button ng-click="run_script()">RUN</button>
+
+<div >
+    <!--Insert proper commands in command field-->
+    <button ng-init='command1 = {
+                command: "pwd",
+                executedBy: "admin",
+                status: "Running"
+}' ng-click="run_script(command1)">Nexus 5X - RUN</button>
+    <button ng-init='command2 = {
+                command: "pwd",
+                executedBy: "admin",
+                status: "Running"
+}' ng-click="run_script(command2)">Motorola - RUN</button>
 </div>
