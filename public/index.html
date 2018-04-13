@@ -19,9 +19,11 @@
     <script src="views/profile/profile.controller.js"></script>
     <script src="views/nav/nav.controller.js"></script>
     <script src="views/user-commands/user-commands.controller.js"></script>
+    <script src="views/addGemfile/addGemfile.controller.js"></script>
     <!--<script src="views/admin/admin.controller.js"></script>-->
     <script src="services/user.services.client.js"></script>
     <script src="services/command.services.client.js"></script>
+    <script src="services/gemfile.services.client.js"></script>
 </head>
 <body ng-app="MobileTestManager">
 <!--<div class="site-all" style="height:100%;">-->
@@ -39,13 +41,13 @@
                 </button>
                 <a class="navbar-brand" href="#home">Mobile Test Manager</a>
             </div>
-            <nav>
             <nav ng-controller="NavCtrl">
                 <div class="navbar-collapse navbar-right collapse" style="height: 1px;">
                     <ul class="nav navbar-nav">
                         <li><a href="#home">HOME</a></li>
                         <li ng-show="!currentUser"><a href="#login">LOGIN</a></li>
                         <li ng-show="!currentUser"><a href="#register">REGISTER</a></li>
+                        <li ng-show="currentUser"><a href="#newGemfile">NEW GEMFILE</a></li>
                         <li><a href="#commands">COMMANDS</a></li>
                         <li class="dropdown" ng-show="currentUser">
                             <a class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<b class="caret"></b></a>
