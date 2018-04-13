@@ -29,7 +29,17 @@
                 .when('/commands', {
                     templateUrl: 'views/user-commands/user-commands.view.html',
                     controller: 'UserCommandsCtrl',
-                    controllerAs: 'model'
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
+                })
+                .when('/newGemfile', {
+                    templateUrl: 'views/addGemfile/addGemfile.view.html',
+                    controller: 'AddGemfileCtrl',
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
+
                 })
                 .otherwise({
                 redirectTo: '/home'

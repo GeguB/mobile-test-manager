@@ -9,12 +9,12 @@
 <div >
     <!--Insert proper commands in command field-->
     <button ng-init='command1 = {
-                command: "pwd",
+                command: "BUNDLE_GEMFILE=/$HOME/IdeaProjects/test-workspace-administrator/preparations/appium-ruby-example/dupa bundle exec rspec /$HOME/IdeaProjects/test-workspace-administrator/preparations/appium-ruby-example/spec/test/nexus5x_spec.rb",
                 executedBy: "admin",
                 status: "Running"
 }' ng-click="run_script(command1)">Nexus 5X - RUN</button>
     <button ng-init='command2 = {
-                command: "pwd",
+                command: "BUNDLE_GEMFILE=/$HOME/IdeaProjects/test-workspace-administrator/preparations/appium-ruby-example/Gemfile bundle exec rspec /$HOME/IdeaProjects/test-workspace-administrator/preparations/appium-ruby-example/spec/test/motorolaXT1039_spec.rb",
                 executedBy: "admin",
                 status: "Running"
 }' ng-click="run_script(command2)">Motorola - RUN</button>

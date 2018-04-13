@@ -1,0 +1,11 @@
+<h1>Add new Gemfile</h1>
+
+{{error}}
+<div class="alert alert-info" ng-show="message">
+    {{message}}
+</div>
+<form>
+    <input  ng-model="gemfile.name"  class="form-control" placeholder="Name"/>
+    <textarea rows="5"  ng-model="gemfile.content" class="form-control" placeholder="Content"/></textarea>
+    <button ng-click="newGemfile(gemfile, currentUser._id)" class="btn btn-primary btn-block">Add</button><br/>
+</form>
