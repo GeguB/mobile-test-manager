@@ -41,6 +41,14 @@
                     }
 
                 })
+                .when('/gemfiles', {
+                    templateUrl: 'views/userGemfiles/userGemfiles.view.html',
+                    controller: 'UserGemfilesCtrl',
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
+
+                })
                 .otherwise({
                 redirectTo: '/home'
             });

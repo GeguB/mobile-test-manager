@@ -1,0 +1,29 @@
+<span ng-init="userGemfiles(currentUser._id)"></span>
+<h1>{{currentUser.username}}'s Gemfiles</h1>
+<div class="alert alert-info" ng-show="message">
+    {{message}}
+</div>
+<div class="alert alert-danger" ng-show="error">
+    {{error}}
+</div>
+
+<div class="table-responsive col-md-12">
+    <table class="table">
+        <thead>
+        <tr class="col-md-12">
+            <th>#</th>
+            <th>Name</th>
+            <th>Content</th>
+            <th>Last update</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="gemfile in userGemfiles.data">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ gemfile.name }}</td>
+            <td>{{ gemfile.content }}</td>
+            <td>{{ gemfile.updatedOn | date:'d/M/yy H:mm:ss'}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

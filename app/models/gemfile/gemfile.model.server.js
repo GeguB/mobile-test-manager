@@ -16,7 +16,7 @@ module.exports = function() {
     var api = {
         addGemfile: addGemfile,
         updateGemfile: updateGemfile,
-        findGemfileByUser: findGemfileByUser,
+        findGemfilesByUserID: findGemfilesByUserID,
         findGemfileById: findGemfileById,
         getMongooseModel: getMongooseModel
     };
@@ -30,8 +30,8 @@ module.exports = function() {
         return GemfileModel.update({_id: gemfileId}, {$set: gemfile});
     }
 
-    function findGemfileByUser(username) {
-        return GemfileModel.findOne({createdBy: username});
+    function findGemfilesByUserID(user_id) {
+        return GemfileModel.where({createdBy: user_id}).find().sort({updatedOn: -1});
     }
 
     function getMongooseModel() {

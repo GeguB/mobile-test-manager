@@ -20,6 +20,7 @@
     <script src="views/nav/nav.controller.js"></script>
     <script src="views/user-commands/user-commands.controller.js"></script>
     <script src="views/addGemfile/addGemfile.controller.js"></script>
+    <script src="views/userGemfiles/userGemfiles.controller.js"></script>
     <!--<script src="views/admin/admin.controller.js"></script>-->
     <script src="services/user.services.client.js"></script>
     <script src="services/command.services.client.js"></script>
@@ -48,6 +49,7 @@
                         <li ng-show="!currentUser"><a href="#login">LOGIN</a></li>
                         <li ng-show="!currentUser"><a href="#register">REGISTER</a></li>
                         <li ng-show="currentUser"><a href="#newGemfile">NEW GEMFILE</a></li>
+                        <li ng-show="currentUser"><a href="#gemfiles">GEMFILE LIST</a></li>
                         <li><a href="#commands">COMMANDS</a></li>
                         <li class="dropdown" ng-show="currentUser">
                             <a class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<b class="caret"></b></a>
