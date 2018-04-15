@@ -47,7 +47,13 @@
                     resolve: {
                         loggedin: checkLoggedin
                     }
-
+                })
+                .when('/run', {
+                    templateUrl: 'views/runSpec/runSpec.view.html',
+                    controller: 'RunSpecCtrl',
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
                 })
                 .otherwise({
                 redirectTo: '/home'

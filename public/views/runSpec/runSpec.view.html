@@ -1,10 +1,16 @@
+<span ng-init="userGemfiles(currentUser._id)"></span>
+
 <h1>New spec run</h1>
 
-{{error}}
-<form>
-    <input  ng-model=""  class="form-control" placeholder="Device"/>
-    <input  ng-model=""  class="form-control" placeholder="Gemfile"/>
-    <input  ng-model="" class="form-control" placeholder="Spec"/>
+<div class="alert alert-info" ng-show="message">
+    {{message}}
+</div>
+<div class="alert alert-danger" ng-show="error">
+    {{error}}
+</div><form>
+    <input  class="form-control" placeholder="Device"/>
+    <select title="Gemfile" data-ng-options="g.name for g in userGemfiles" data-ng-model="selectedGemfile"></select>
+
+    <input  class="form-control" placeholder="Spec"/>
     <button ng-click="" class="btn btn-primary btn-block">Run</button><br/>
 </form>
-{{message}}
