@@ -1,0 +1,14 @@
+<h1>Add new Step</h1>
+
+<div class="alert alert-danger" ng-show="error">
+    {{error}}
+</div>
+<div class="alert alert-info" ng-show="message">
+    {{message}}
+</div>
+<form>
+    <input  ng-model="step.name"  class="form-control" placeholder="Name"/>
+    <input  ng-model="step.applicationName"  class="form-control" placeholder="Application name"/>
+    <textarea rows="5"  ng-model="step.content" class="form-control" placeholder="Content"/></textarea>
+    <button ng-click="newStep(step, currentUser._id)" class="btn btn-primary btn-block">Add</button><br/>
+</form>

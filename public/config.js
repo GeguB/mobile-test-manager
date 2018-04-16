@@ -48,6 +48,21 @@
                         loggedin: checkLoggedin
                     }
                 })
+                .when('/newStep', {
+                    templateUrl: 'views/addStep/addStep.view.html',
+                    controller: 'AddStepCtrl',
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
+
+                })
+                .when('/steps', {
+                    templateUrl: 'views/listSteps/listSteps.view.html',
+                    controller: 'UserStepsCtrl',
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
+                })
                 .when('/newDevice', {
                     templateUrl: 'views/addDevice/addDevice.view.html',
                     controller: 'AddDeviceCtrl',

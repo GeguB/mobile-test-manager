@@ -7,7 +7,7 @@ module.exports = function(app) {
     app.get('/api/gemfiles', findGemfilesByUserID);
 
     function addGemfile(req, res) {
-        var newGemfile = req.body;
+        let newGemfile = req.body;
         gemfileModel.addGemfile(newGemfile)
             .then(
                 res.sendStatus(200))
@@ -25,7 +25,4 @@ module.exports = function(app) {
                 }
             )
     }
-
-
-
-}
+};

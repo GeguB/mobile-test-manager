@@ -1,4 +1,6 @@
+<span ng-init="devicesList()"></span>
 <span ng-init="userGemfiles(currentUser._id)"></span>
+<span ng-init="userSteps(currentUser._id)"></span>
 
 <h1>New spec run</h1>
 
@@ -8,9 +10,8 @@
 <div class="alert alert-danger" ng-show="error">
     {{error}}
 </div><form>
-    <input  class="form-control" placeholder="Device"/>
+    <select title="Device" data-ng-options="d.name for d in devicesList" data-ng-model="selectedDevice"></select>
     <select title="Gemfile" data-ng-options="g.name for g in userGemfiles" data-ng-model="selectedGemfile"></select>
-
-    <input  class="form-control" placeholder="Spec"/>
+    <select title="Step" data-ng-options="s.name for s in userSteps" data-ng-model="selectedStep"></select>
     <button ng-click="" class="btn btn-primary btn-block">Run</button><br/>
 </form>

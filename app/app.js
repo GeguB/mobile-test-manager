@@ -4,5 +4,6 @@ module.exports = function(app) {
     var commandService = require("./services/command/command.service.server.js")(app);
     var gemfileService = require("./services/gemfile/gemfile.service.server.js")(app);
     var deviceService = require("./services/device/device.service.server.js")(app);
+    var stepService = require("./services/step/step.service.server")(app);
 
 }
