@@ -48,6 +48,17 @@
                         loggedin: checkLoggedin
                     }
                 })
+                .when('/newDevice', {
+                    templateUrl: 'views/addDevice/addDevice.view.html',
+                    controller: 'AddDeviceCtrl',
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
+                })
+                .when('/listDevices', {
+                    templateUrl: 'views/devicesList/devicesList.view.html',
+                    controller: 'DevicesListCtrl'
+                })
                 .when('/run', {
                     templateUrl: 'views/runSpec/runSpec.view.html',
                     controller: 'RunSpecCtrl',

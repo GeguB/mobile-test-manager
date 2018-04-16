@@ -11,7 +11,6 @@
                 .findGemfilesByUserID(user_id)
                 .then(
                     function (response) {
-                        console.log(response);
                         $scope.userGemfiles = response;
                     },
                     function (err) {

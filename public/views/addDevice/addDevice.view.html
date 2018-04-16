@@ -1,0 +1,15 @@
+<h1>Add new Device</h1>
+<div ng-if="error" class="alert alert-danger">
+    {{error}}
+</div>
+<div ng-if="message" class="alert alert-info">
+    {{message}}
+</div>
+<form>
+    <input  ng-model="device.name"  class="form-control" placeholder="Device's name"/>
+    <input  ng-model="device.androidVer"  class="form-control" placeholder="Android version"/>
+    <input  ng-model="device.yearOfProduction" type="number" min="2000" max="2018" class="form-control" placeholder="Year of production"/>
+    <input  ng-model="device.producent"  class="form-control" placeholder="Producent's name"/>
+    <input  ng-model="device.appiumPort" type="number" min="1000" max="9999" class="form-control" placeholder="Appium port" />
+    <button ng-click="addDevice(device, currentUser._id)" class="btn btn-primary btn-block">Add</button><br/>
+</form>

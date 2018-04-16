@@ -1,0 +1,32 @@
+<span ng-init="devicesList()"></span>
+
+<div class="alert alert-danger" ng-show="error">
+    {{error}}
+</div>
+
+<div class="table-responsive col-md-12">
+    <table class="table">
+        <thead>
+        <tr class="col-md-12">
+            <th>#</th>
+            <th>Name</th>
+            <th>Android ver</th>
+            <th>Producent</th>
+            <th>Y/o production</th>
+            <th>State</th>
+            <th>Last update</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="device in devicesList.data">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ device.name }}</td>
+            <td>{{ device.androidVer }}</td>
+            <td>{{ device.producent }}</td>
+            <td>{{ device.yearOfProduction }}</td>
+            <td>{{ device.state }}</td>
+            <td>{{ device.updatedOn | date:'d/M/yy H:mm:ss'}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
