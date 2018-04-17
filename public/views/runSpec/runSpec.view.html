@@ -13,5 +13,5 @@
     <select title="Device" data-ng-options="d.name for d in devicesList" data-ng-model="selectedDevice"></select>
     <select title="Gemfile" data-ng-options="g.name for g in userGemfiles" data-ng-model="selectedGemfile"></select>
     <select title="Step" data-ng-options="s.name for s in userSteps" data-ng-model="selectedStep"></select>
-    <button ng-click="" class="btn btn-primary btn-block">Run</button><br/>
+    <button ng-click="runTest()" class="btn btn-primary btn-block">Run</button><br/>
 </form>

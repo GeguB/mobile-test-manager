@@ -7,6 +7,7 @@
         $scope.userGemfiles = userGemfiles;
         $scope.devicesList = devicesList;
         $scope.userSteps = userSteps;
+        $scope.runTest = runTest;
 
         function userGemfiles(user_id) {
             GemfileService
@@ -48,6 +49,12 @@
                         $scope.error = err;
                     }
                 )
+        }
+
+        function runTest() {
+            console.log($scope.selectedGemfile)
+            console.log($scope.selectedDevice)
+            console.log($scope.selectedStep)
         }
     }
 })();

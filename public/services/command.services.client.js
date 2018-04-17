@@ -5,12 +5,17 @@
 
     function CommandService($http) {
         var api = {
-            run_script: run_script
+            run_script: run_script,
+            run_test: run_test
         };
         return api;
 
         function run_script(command) {
             return $http.post('/api/run-cmd', command);
+        }
+
+        function run_test(user_id) {
+            return $http.post('/api/run-test', user_id);
         }
 
         function authorized(req, res, next) {
