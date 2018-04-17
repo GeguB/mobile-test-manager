@@ -14,8 +14,8 @@
             return $http.post('/api/run-cmd', command);
         }
 
-        function run_test(user_id) {
-            return $http.post('/api/run-test', user_id);
+        function run_test(json) {
+            return $http.post('/api/run-test', json);
         }
 
         function authorized(req, res, next) {
