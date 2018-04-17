@@ -3,11 +3,13 @@
         .module("MobileTestManager")
         .controller("RunSpecCtrl", RunSpecCtrl);
 
-    function RunSpecCtrl($scope, $location, $rootScope, GemfileService, DeviceService, StepService) {
+    function RunSpecCtrl($scope, $location, $rootScope, GemfileService, DeviceService, StepService, CommandService) {
         $scope.userGemfiles = userGemfiles;
         $scope.devicesList = devicesList;
         $scope.userSteps = userSteps;
         $scope.runTest = runTest;
+        $scope.run_test = run_test;
+
 
         function userGemfiles(user_id) {
             GemfileService
@@ -52,9 +54,22 @@
         }
 
         function runTest() {
-            console.log($scope.selectedGemfile)
-            console.log($scope.selectedDevice)
+            console.log($scope.selectedGemfile);
+            console.log($scope.selectedDevice);
             console.log($scope.selectedStep)
+        }
+
+
+        function run_test(user_id) {
+            let json = `{
+                            "user_id":"${user_id}",
+                            "gemfile_id":"${$scope.selectedGemfile['_id']}",
+                            "gemfile_content":"${escape($scope.selectedGemfile['content'])}"
+                        }`;
+            console.log(json);
+            console.log($scope.selectedGemfile['_id']);
+            CommandService
+                .run_test(json)
         }
     }
 })();

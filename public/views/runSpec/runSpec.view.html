@@ -14,4 +14,5 @@
     <select title="Gemfile" data-ng-options="g.name for g in userGemfiles" data-ng-model="selectedGemfile"></select>
     <select title="Step" data-ng-options="s.name for s in userSteps" data-ng-model="selectedStep"></select>
     <button ng-click="runTest()" class="btn btn-primary btn-block">Run</button><br/>
+    <button ng-click="run_test(currentUser._id)" class="btn btn-primary btn-block">Run FULL</button><br/>
 </form>

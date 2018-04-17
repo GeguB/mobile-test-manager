@@ -29,9 +29,9 @@
                 .when('/commands', {
                     templateUrl: 'views/user-commands/user-commands.view.html',
                     controller: 'UserCommandsCtrl',
-                    resolve: {
-                        loggedin: checkLoggedin
-                    }
+                    // resolve: {
+                    //     loggedin: checkLoggedin
+                    // }
                 })
                 .when('/newGemfile', {
                     templateUrl: 'views/addGemfile/addGemfile.view.html',

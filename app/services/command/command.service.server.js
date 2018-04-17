@@ -1,9 +1,14 @@
 var shell = require('shelljs');
+var fs = require('fs');
 
 
 module.exports = function (app) {
 
     var commandModel = require("../../models/command/command.model.server.js")();
+
+    var home = shell.exec(`echo $HOME`, {silent: true}).stdout;
+    home = home.slice(0, -1);
+
 
     app.post('/api/run-cmd', run_cmd);
     app.post('/api/run-test', run_test);
@@ -44,6 +49,7 @@ module.exports = function (app) {
             createUserDirectory(req.body);
         else
             console.log(`Directory for user ${req.body['user_id']} already exists`);
+        build_gemfile(req.body);
 
         res.sendStatus(200)
     }
@@ -60,5 +66,22 @@ module.exports = function (app) {
         let user_id = body['user_id'];
         console.log(`Creating new directory for user ${user_id}`);
         shell.exec(`mkdir $HOME/mtm-workspace/${user_id}`)
+    }
+
+    function build_gemfile(body){
+        let user_id = body['user_id'];
+        let gemfile_id = body['gemfile_id'];
+        let gemfile_content = body['gemfile_content'];
+        gemfile_content = unescape(gemfile_content)
+        console.log(`Building new gemfile for ${gemfile_id}`);
+        let path = `${home}/mtm-workspace/${user_id}/gemfile_${gemfile_id}`;
+        console.log(path);
+
+        fs.writeFile(path, gemfile_content, function (err) {
+            if(err) {
+                console.log(err)
+            }
+            else console.log(`Gemfile ${gemfile_id} has been created`)
+        });
     }
 };
