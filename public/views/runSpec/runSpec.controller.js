@@ -64,10 +64,12 @@
             let json = `{
                             "user_id":"${user_id}",
                             "gemfile_id":"${$scope.selectedGemfile['_id']}",
-                            "gemfile_content":"${escape($scope.selectedGemfile['content'])}"
+                            "gemfile_content":"${escape($scope.selectedGemfile['content'])}",
+                            "step_content":"${escape($scope.selectedStep['content'])}",
+                            "device_id":"${$scope.selectedDevice['_id']}",
+                            "device_port":"${$scope.selectedDevice['appiumPort']}"
                         }`;
             console.log(json);
-            console.log($scope.selectedGemfile['_id']);
             CommandService
                 .run_test(json)
         }

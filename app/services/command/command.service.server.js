@@ -49,7 +49,10 @@ module.exports = function (app) {
             createUserDirectory(req.body);
         else
             console.log(`Directory for user ${req.body['user_id']} already exists`);
-        build_gemfile(req.body);
+        buildGemfile(req.body);
+        createSpecFile(req.body);
+        run_appium(req.body);
+        kill_appium(req.body['device_port']);
 
         res.sendStatus(200)
     }
@@ -68,7 +71,7 @@ module.exports = function (app) {
         shell.exec(`mkdir $HOME/mtm-workspace/${user_id}`)
     }
 
-    function build_gemfile(body){
+    function buildGemfile(body){
         let user_id = body['user_id'];
         let gemfile_id = body['gemfile_id'];
         let gemfile_content = body['gemfile_content'];
@@ -83,5 +86,36 @@ module.exports = function (app) {
             }
             else console.log(`Gemfile ${gemfile_id} has been created`)
         });
+    }
+
+    function createSpecFile(body){
+        let user_id = body['user_id'];
+        let step_content = body['step_content'];
+        step_content = unescape(step_content);
+        console.log(`Building new spec file for user ${user_id}`);
+
+        let path = `${home}/mtm-workspace/${user_id}/${Date.now()}_spec.rb`;
+        fs.writeFile(path, step_content, function (err) {
+            if(err) {
+                console.log(err)
+            }
+            else console.log(`Spec file for user ${user_id} has been created`)
+        });
+    }
+
+    function run_appium(body) {
+        let port = body['device_port'];
+        let user_id = body['user_id'];
+        let log_path = `${home}/mtm-workspace/${user_id}/${Date.now()}_appium.log`;
+        shell.exec(`appium -p ${port} > ${log_path} &`, {async:true});
+        console.log(`Appium for user ${user_id} has been started on port ${port}`)
+    }
+
+    function kill_appium(port) {
+        setTimeout(function() {
+            let pid = shell.exec(`echo $(lsof -i | grep ${port}) | cut -d " " -f 2`, {silent: true}).stdout;
+            console.log(`Test ended. Killing appium on port ${port} with pid ${pid}`);
+            shell.exec(`kill -9 ${pid}`)
+        }, 3000);
     }
 };

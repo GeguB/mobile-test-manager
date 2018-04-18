@@ -7,8 +7,6 @@
     function UserCommandsCtrl($scope, UserService, CommandService, $location, $rootScope)
     {
         $scope.run_script = run_script;
-        $scope.run_test = run_test;
-
 
 
         function run_script(command) {
@@ -21,13 +19,6 @@
                         $scope.message = "Command was run."
                     }
                 );
-        }
-
-        function run_test(user_id) {
-            let json = `{"user_id":"${user_id}"}`;
-            console.log(json)
-            CommandService
-                .run_test(json)
         }
     }
 })();
