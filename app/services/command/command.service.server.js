@@ -16,14 +16,14 @@ module.exports = function (app) {
 
     function run_cmd(req, res) {
         let new_command = req.body;
-        commandModel.addCommand(new_command)
+        commandModel.addCommand(new_command);
         console.log("Async cmd execution started.");
         shell.exec(new_command.command, {silent: true}, function (code, stdout, stderr) {
             console.log("Executed cmd: ", new_command.command);
             if (code === 0)
                 status = "SUCCESS";
             else
-                status = "CANNOT COMPUTE"
+                status = "CANNOT COMPUTE";
             console.log("Cmd output: ", stdout);
             if (stderr) {
                 status = "ERROR";
@@ -47,12 +47,17 @@ module.exports = function (app) {
         let timestamp = Date.now();
         if (checkIfDirectoryExists(req.body) === false)
             createUserDirectory(req.body);
+        kill_appium(req.body['device_port']);
         buildGemfile(req.body, timestamp);
-        //bundleUpdate
-        createSpecFile(req.body, timestamp);
-        // run_appium(req.body, timestamp);
-        //execute test
-        // kill_appium(req.body['device_port']);
+        bundleUpdate(req.body, timestamp)
+            .then(x => {
+                    createSpecFile(req.body, timestamp);
+                    run_appium(req.body, timestamp);
+                    setTimeout(function () {
+                        runTest(req.body, timestamp)
+                    }, 3000);
+                }
+            );
         //exposeLogs
         res.sendStatus(200)
     }
@@ -74,8 +79,8 @@ module.exports = function (app) {
         let user_id = body['user_id'];
         let gemfile_id = body['gemfile_id'];
         let gemfile_content = body['gemfile_content'];
-        gemfile_content = unescape(gemfile_content)
-        let path = `${home}/mtm-workspace/${user_id}/gemfile_${timestamp}`;
+        gemfile_content = unescape(gemfile_content);
+        let path = `${home}/mtm-workspace/${user_id}/Gemfile`;
         fs.writeFile(path, gemfile_content, function (err) {
             if (err) {
                 console.log(err)
@@ -84,10 +89,9 @@ module.exports = function (app) {
         });
     }
 
-
     function getGems(body, timestamp) {
         let user_id = body['user_id'];
-        let gemfile_path = `${home}/mtm-workspace/${user_id}/gemfile_${timestamp}`;
+        let gemfile_path = `${home}/mtm-workspace/${user_id}/Gemfile`;
         let gems = [];
         return new Promise(function (resolve, reject) {
             readline.eachLine(gemfile_path, function (line, last) {
@@ -138,11 +142,13 @@ module.exports = function (app) {
             getOptions(body).then(
                 options => {
                     requireString += `options = {\n`;
-                    requireString += `platformName: 'Android',\n`;
                     requireString += `caps: {\n`;
+                    requireString += `platformName: 'Android',\n`;
                     requireString += `appPackage: '${options.appPackage}',\n`;
+                    requireString += `appActivity: '.Settings',\n`;
                     requireString += `deviceName: '${options.deviceName}',\n`;
-                    requireString += `udid: '${options.udid}',\n`;
+                    requireString += `udid: '${options.udid}'\n`;
+                    requireString += `},\n`;
                     requireString += `appium_lib: {\n`;
                     requireString += `port: '${options.device_port}'`;
                     requireString += `},\n`;
@@ -192,19 +198,38 @@ module.exports = function (app) {
             });
     }
 
+    function runTest(body, timestamp) {
+        let user_id = body['user_id'];
+        let spec_path = `${home}/mtm-workspace/${user_id}/${timestamp}_spec.rb`;
+        let gemfile_path = `${home}/mtm-workspace/${user_id}/Gemfile`;
+        console.log(`BUNDLE_GEMFILE=${gemfile_path} bundle exec rspec ${spec_path}`);
+        shell.exec(`BUNDLE_GEMFILE=${gemfile_path} bundle exec rspec ${spec_path}`);
+
+    }
+
+    function bundleUpdate(body, timestamp) {
+        let user_id = body['user_id'];
+        let gemfile_path = `${home}/mtm-workspace/${user_id}/Gemfile`;
+        return new Promise(function (resolve, reject) {
+            shell.exec(`BUNDLE_GEMFILE=${gemfile_path} bundle install`);
+            resolve();
+        })
+    }
+
     function run_appium(body, timestamp) {
-        let port = body['device_port'];
+        port = body['device_port'];
         let user_id = body['user_id'];
         let log_path = `${home}/mtm-workspace/${user_id}/${timestamp}_appium.log`;
-        shell.exec(`appium -p ${port} > ${log_path} &`, {async: true});
+        shell.exec(`appium -p ${port} > ${log_path}`, {async: true});
         console.log(`Appium for user ${user_id} has been started on port ${port}`)
     }
 
     function kill_appium(port) {
-        setTimeout(function () {
             let pid = shell.exec(`echo $(lsof -i | grep ${port}) | cut -d " " -f 2`, {silent: true}).stdout;
-            console.log(`Test ended. Killing appium on port ${port} with pid ${pid}`);
-            shell.exec(`kill -9 ${pid}`)
-        }, 3000);
+            if (pid)
+            {console.log(`Test ended. Killing appium on port ${port} with pid ${pid}`);
+            shell.exec(`kill -9 ${pid}`)}
+            else
+                console.log(`Appium not running on port ${port}`)
     }
 };
