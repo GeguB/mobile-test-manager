@@ -135,31 +135,31 @@ module.exports = function (app) {
     function includeOptions(body) {
         let requireString = "";
         return new Promise(function (resolve, reject) {
-                getOptions(body).then(
-                    options => {
-                        requireString += `options = {\n`;
-                        requireString += `platformName: 'Android',\n`;
-                        requireString += `caps: {\n`;
-                        requireString += `appPackage: '${options.appPackage}',\n`;
-                        requireString += `deviceName: '${options.deviceName}',\n`;
-                        requireString += `udid: '${options.udid}',\n`;
-                        requireString += `appium_lib: {\n`;
-                        requireString += `port: '${options.device_port}'`;
-                        requireString += `},\n`;
-                        requireString += `launchTimeout: 20000\n`;
-                        requireString += `}\n`;
-                        requireString += `RSpec.configure do |config|\n`;
-                        requireString += `config.before(:all) do\n`;
-                        requireString += `@driver = Appium::Driver.new(options, true).start_driver\n`;
-                        requireString += `@driver.manage.timeouts.implicit_wait = 3\n`;
-                        requireString += `end\n`;
-                        requireString += `config.after(:all) do\n`;
-                        requireString += `@driver.quit\n`;
-                        requireString += `end\n`;
-                        requireString += `end\n`;
-                        resolve(requireString);
-                    }
-                )
+            getOptions(body).then(
+                options => {
+                    requireString += `options = {\n`;
+                    requireString += `platformName: 'Android',\n`;
+                    requireString += `caps: {\n`;
+                    requireString += `appPackage: '${options.appPackage}',\n`;
+                    requireString += `deviceName: '${options.deviceName}',\n`;
+                    requireString += `udid: '${options.udid}',\n`;
+                    requireString += `appium_lib: {\n`;
+                    requireString += `port: '${options.device_port}'`;
+                    requireString += `},\n`;
+                    requireString += `launchTimeout: 20000\n`;
+                    requireString += `}\n`;
+                    requireString += `RSpec.configure do |config|\n`;
+                    requireString += `config.before(:all) do\n`;
+                    requireString += `@driver = Appium::Driver.new(options, true).start_driver\n`;
+                    requireString += `@driver.manage.timeouts.implicit_wait = 3\n`;
+                    requireString += `end\n`;
+                    requireString += `config.after(:all) do\n`;
+                    requireString += `@driver.quit\n`;
+                    requireString += `end\n`;
+                    requireString += `end\n`;
+                    resolve(requireString);
+                }
+            )
 
         })
     }
@@ -177,30 +177,19 @@ module.exports = function (app) {
 
     function createSpecFile(body, timestamp) {
         let user_id = body['user_id'];
-        includeGems(body, timestamp)
-            .then(
-            reqString => {
-                console.log('Require string: ' + reqString)
-            }
-        );
-        includeOptions(body)
-            .then(
-            optsString => {
-                console.log('Options string: ' + optsString)
-            }
-        );
-        includeSteps(body)
-            .then(steps => {
-                console.log('Include Steps Result: ' + steps);
-            });
-
         let path = `${home}/mtm-workspace/${user_id}/${timestamp}_spec.rb`;
-        // fs.writeFile(path, step_content, function (err) {
-        //     if (err) {
-        //         console.log(err)
-        //     }
-        //     else console.log(`Spec file for user ${user_id} has been created`)
-        // });
+
+        let specString = "";
+        Promise.all([includeGems(body, timestamp), includeOptions(body), includeSteps(body)])
+            .then(result => {
+                specString = result.join('');
+                fs.writeFile(path, specString, function (err) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else console.log(`Spec file for user ${user_id} has been created`)
+                });
+            });
     }
 
     function run_appium(body, timestamp) {
