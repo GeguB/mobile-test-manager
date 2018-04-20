@@ -9,6 +9,7 @@ module.exports = function() {
             yearOfProduction: Number,
             producent: String,
             appiumPort: Number,
+            udid: String,
             state: {type: String, default: "Offline" },
             addedBy: String, //userID
             updatedOn: Date
