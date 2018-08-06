@@ -1,4 +1,5 @@
 <span ng-init="userGemfiles(currentUser._id)"></span>
+<span ng-init="selectedGemfile('Pick a Gemfile from the table.')"></span>
 <h1>{{currentUser.username}}'s Gemfiles</h1>
 <div class="alert alert-info" ng-show="message">
     {{message}}
@@ -7,23 +8,28 @@
     {{error}}
 </div>
 
-<div class="table-responsive col-md-12">
+<div class="table-responsive col-md-8" style="border-right: 1px #333;">
     <table class="table">
         <thead>
         <tr class="col-md-12">
-            <th>#</th>
-            <th>Name</th>
-            <th>Content</th>
-            <th>Last update</th>
+            <th class="col-md-2">#</th>
+            <th class="col-md-3">Name</th>
+            <th class="col-md-4">Last update</th>
+            <th class="col-md-3">Content</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="gemfile in userGemfiles.data">
             <td>{{ $index + 1 }}</td>
             <td>{{ gemfile.name }}</td>
-            <td>{{ gemfile.content }}</td>
             <td>{{ gemfile.updatedOn | date:'d/M/yy H:mm:ss'}}</td>
+            <td><button ng-click="selectedGemfile(gemfile.content)">Show content</button></td>
         </tr>
         </tbody>
     </table>
+</div>
+
+<div class="col-md-4" >
+    <p><b>Gemfile content</b></p>
+    <textarea class="col-md-12" style="resize: none;" rows="20" readonly>{{ selectedGemfile }}</textarea>
 </div>

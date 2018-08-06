@@ -5,6 +5,7 @@
 
     function UserGemfilesCtrl($scope, $location, $rootScope, GemfileService) {
         $scope.userGemfiles = userGemfiles;
+        $scope.selectedGemfile = selectedGemfile;
 
         function userGemfiles(user_id) {
             GemfileService
@@ -17,6 +18,10 @@
                         $scope.error = err;
                     }
                 )
+        }
+
+        function selectedGemfile(gemfile_content){
+            $scope.selectedGemfile = gemfile_content;
         }
     }
 })();
