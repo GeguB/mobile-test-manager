@@ -1,5 +1,4 @@
 <span ng-init="userGemfiles(currentUser._id)"></span>
-<span ng-init="selectedGemfile('Pick a Gemfile from the table.')"></span>
 <h1>{{currentUser.username}}'s Gemfiles</h1>
 <div class="alert alert-info" ng-show="message">
     {{message}}
@@ -8,7 +7,7 @@
     {{error}}
 </div>
 
-<div class="table-responsive col-md-8" style="border-right: 1px #333;">
+<div class="table-responsive col-md-8" style="border-right: 1px dashed #333;">
     <table class="table">
         <thead>
         <tr class="col-md-12">
@@ -23,13 +22,16 @@
             <td>{{ $index + 1 }}</td>
             <td>{{ gemfile.name }}</td>
             <td>{{ gemfile.updatedOn | date:'d/M/yy H:mm:ss'}}</td>
-            <td><button ng-click="selectedGemfile(gemfile.content)">Show content</button></td>
+            <td><button ng-click="selectedGemfile(gemfile.content, gemfile.name)" class="btn btn-primary btn-block">Show content</button></td>
         </tr>
         </tbody>
     </table>
 </div>
 
 <div class="col-md-4" >
-    <p><b>Gemfile content</b></p>
-    <textarea class="col-md-12" style="resize: none;" rows="20" readonly>{{ selectedGemfile }}</textarea>
+    <p><b>Gemfile content </b></p>
+    <p>{{ gemfileName }}</p>
+    <textarea class="col-md-12" style="resize: none;" rows="20">{{ selectedGemfile }} </textarea>
+    <div class="col-md-8"></div>
+    <button class="btn btn-primary btn-block col-md-4">Update Gemfile</button>
 </div>
