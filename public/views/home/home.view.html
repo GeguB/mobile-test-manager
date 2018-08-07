@@ -1,5 +1,51 @@
-<h1>Home</h1>
+<style>
+    a{
+        color: #4d4d4d;
+    }
 
-<span ng-show="currentUser">
-    <h3>Welcome {{currentUser.username}}</h3>
-</span>
+    h6{
+        color: #4d4d4d;
+    }
+
+</style>
+
+<h1>Landing page</h1>
+
+<div class="col-md-11">
+    <div class="row top-buffer">
+    <a href="#run">
+        <div class="col-md-3  text-center" ><h6>Create New test run</h6><br/>
+            <span class="fas fa-cogs fa-10x"></span>
+        </div>
+    </a>
+    <a href="#run">
+        <div class="col-md-3 col-md-offset-1  text-center" ><h6>Test runs history</h6><br/>
+            <span class="fas fa-history fa-10x"></span>
+        </div>
+    </a>
+    <a href="#run">
+        <div class="col-md-3 col-md-offset-1  text-center" ><h6>My Profile</h6><br/>
+            <span class="fas fa-user fa-10x"></span>
+        </div>
+    </a>
+    </div>
+    <br/><div class="row top-buffer"><br/>
+    <a href="#gemfiles">
+        <div class="col-md-3 text-center"><h6>My Gemfiles</h6><br/>
+            <span class="far fa-gem fa-10x"></span>
+            <a href="#newGemfile"><p>Create New Gemfile ></p></a>
+        </div>
+    </a>
+    <a href="#steps">
+        <div class="col-md-3 col-md-offset-1 text-center"><h6>My Steps</h6><br/>
+            <span class="fas fa-puzzle-piece fa-10x"></span>
+            <a href="#newStep"><p>Create New Step ></p></a>
+        </div>
+    </a>
+    <a href="#listDevices">
+        <div class="col-md-3 col-md-offset-1 text-center"><h6>List of active Devices</h6><br/>
+            <span class="fas fa-mobile-alt fa-10x"></span>
+        </div>
+    </a>
+</div>
+</div>
