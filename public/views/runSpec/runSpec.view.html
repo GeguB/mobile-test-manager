@@ -9,11 +9,68 @@
 </div>
 <div class="alert alert-danger" ng-show="error">
     {{error}}
-</div><form>
-    <input title="Run name" data-ng-model="runName">
-    <select title="Device" data-ng-options="d.name for d in devicesList" data-ng-model="selectedDevice"></select>
-    <select title="Gemfile" data-ng-options="g.name for g in userGemfiles" data-ng-model="selectedGemfile"></select>
-    <select title="Step" data-ng-options="s.name for s in userSteps" data-ng-model="selectedStep"></select>
-    <button ng-click="runTest()" class="btn btn-primary btn-block">Run</button><br/>
-    <button ng-click="run_test(currentUser._id)" class="btn btn-primary btn-block">Run FULL</button><br/>
+</div>
+
+<form>
+    <div class="container col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                Run name: <input title="Run name" data-ng-model="runName">
+            </div>
+            <div class="col-md-3">
+                Target Device <select title="Device" data-ng-options="d.name for d in devicesList"
+                                      data-ng-model="selectedDevice"></select>
+            </div>
+            <div class="col-md-3">
+                Gemfile <select title="Gemfile" data-ng-options="g.name for g in userGemfiles"
+                                data-ng-model="selectedGemfile"></select></div>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <h3>Create a test spec</h3>
+
+    <div class="container col-md-12">
+        <div class="row">
+            <div class="col-md-4" style="border-right: 1px dashed #333;">
+                <table class="table col-md-12">
+                    <tr ng-repeat="step in userSteps">
+                        <td>
+                            <div class="col-md-10">{{ step.name }}</div>
+                            <div class="col-md-2">
+                                <button ng-click="addTestStepToSelected(step)" class="btn">+</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4" style="border-right: 1px dashed #333;">
+                <table class="table col-md-12">
+                    <tr ng-repeat="step in selectedSteps track by $index">
+                        <td>
+                            <div class="col-md-6">{{ step.name }}</div>
+                            <div class="col-md-5">
+                                <div class="input-group-btn">
+                                    <div class="input-group-btn-vertical">
+                                        <button type="button"><i class="fa fa-caret-up"></i>
+                                        </button>
+                                        <button type="button"><i class="fa fa-caret-down"></i>
+                                        </button>
+                                    </div>
+                                    <button class="btn">-</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <textarea class="col-md-12" style="resize: none;" rows="20">aaaaaaaa </textarea><br/>
+                <button ng-click="run_test(currentUser._id)" class="btn btn-primary btn-block">Run</button>
+            </div>
+        </div>
+    </div>
+
+    <!--<button ng-click="runTest()" class="btn btn-primary btn-block">Run</button><br/>-->
 </form>

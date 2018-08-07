@@ -10,6 +10,10 @@
         $scope.runTest = runTest;
         $scope.run_test = run_test;
         $scope.runName = "default";
+        $scope.selectedSteps = selectedSteps;
+        $scope.addTestStepToSelected = addTestStepToSelected;
+
+        let selectedStepsArray = [];
 
 
         function userGemfiles(user_id) {
@@ -77,6 +81,17 @@
             console.log(json);
             CommandService
                 .run_test(json)
+        }
+
+        function addTestStepToSelected(step) {
+            selectedStepsArray.push(step)
+            $scope.selectedSteps = selectedStepsArray;
+            console.log(selectedStepsArray);
+        }
+
+        function selectedSteps() {
+            console.log("Called SS")
+            $scope.selectedSteps = selectedStepsArray;
         }
     }
 })();
