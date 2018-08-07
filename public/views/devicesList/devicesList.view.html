@@ -13,19 +13,23 @@
             <th>Android ver</th>
             <th>Producent</th>
             <th>Y/o production</th>
+            <th ng-show="currentUser">Appium port</th>
             <th>State</th>
-            <th>Last update</th>
+            <th ng-show="currentUser">Last update</th>
+            <th ng-show="currentUser">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="device in devicesList.data">
+        <tr ng-repeat="device in devicesList.data" ng-if="device.state != 'Offline' || currentUser">
             <td>{{ $index + 1 }}</td>
             <td>{{ device.name }}</td>
             <td>{{ device.androidVer }}</td>
             <td>{{ device.producent }}</td>
             <td>{{ device.yearOfProduction }}</td>
+            <td ng-show="currentUser">{{ device.appiumPort }}</td>
             <td>{{ device.state }}</td>
-            <td>{{ device.updatedOn | date:'d/M/yy H:mm:ss'}}</td>
+            <td ng-show="currentUser">{{ device.updatedOn | date:'d/M/yy H:mm:ss'}}</td>
+            <td ng-show="currentUser"><button class="btn btn-primary">Update Device</button> <button class="btn btn-danger">Remove Device</button></td>
         </tr>
         </tbody>
     </table>
