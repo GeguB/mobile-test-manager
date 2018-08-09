@@ -2,6 +2,61 @@
 <span ng-init="userGemfiles(currentUser._id)"></span>
 <span ng-init="userSteps(currentUser._id)"></span>
 
+<style>
+    .btn i {
+        position: absolute;
+        text-align: center;
+        top: 10px;
+        left: 12px;
+    }
+
+    .spinner {
+        width: 52px;
+    }
+
+    .spinner input {
+        text-align: right;
+    }
+
+    .input-group-btn-vertical {
+        position: relative;
+        white-space: nowrap;
+        width: 1%;
+        vertical-align: middle;
+        display: table-cell;
+
+    }
+
+    .input-group-btn-vertical > .btn {
+        display: block;
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        padding: 8px;
+        margin-left: 20px;
+        position: relative;
+        border-radius: 0;
+    }
+
+    .input-group-btn-vertical > .btn:first-child {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    .input-group-btn-vertical > .btn:last-child {
+        margin-top: -2px;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .input-group-btn-vertical i {
+        position: absolute;
+        text-align: center;
+        top: 0;
+        left: 14px;
+    }
+</style>
+
 <h1>New spec run</h1>
 
 <div class="alert alert-info" ng-show="message">
@@ -14,58 +69,77 @@
 <form>
     <div class="container col-md-12">
         <div class="row">
-            <div class="col-md-6">
-                Run name: <input title="Run name" data-ng-model="runName">
+            <div class="col-md-12">
+                Run name: <input title="Run name" data-ng-model="runName" size="80">
             </div>
-            <div class="col-md-3">
+            <br/>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                Target Application <select title="Application">Wikipedia
+                <option selected="selected">Wikipedia</option>
+            </select>
+                <br/>
+                <h7>(<a>Run against web aplication</a> or <a>Add new Application ></a>)</h7>
+            </div>
+
+            <div class="col-md-4">
                 Target Device <select title="Device" data-ng-options="d.name for d in devicesList"
                                       data-ng-model="selectedDevice"></select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 Gemfile <select title="Gemfile" data-ng-options="g.name for g in userGemfiles"
-                                data-ng-model="selectedGemfile"></select></div>
+                                data-ng-model="selectedGemfile"></select>
+                <br/>
+                <h7>(<a>Add new Gemfile ></a>)</h7>
+            </div>
         </div>
     </div>
     <br>
     <br>
 
-    <h3>Create a test spec</h3>
-
-    <div class="container col-md-12">
+    <div class="col-md-12">
         <div class="row">
             <div class="col-md-4" style="border-right: 1px dashed #333;">
+                <h3>Available steps</h3>
+                <h7>(<a>Add new step ></a>)</h7>
                 <table class="table col-md-12">
                     <tr ng-repeat="step in userSteps">
                         <td>
                             <div class="col-md-10">{{ step.name }}</div>
                             <div class="col-md-2">
-                                <button ng-click="addTestStepToSelected(step)" class="btn">+</button>
+                                <button ng-click="addTestStepToSelected(step)" class="btn"
+                                        style="width: 36px; height: 36px; text-align: center;"><i
+                                        class="fa fa-plus"></i></button>
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="col-md-4" style="border-right: 1px dashed #333;">
+                <h3>Chosen steps</h3>
                 <table class="table col-md-12">
                     <tr ng-repeat="step in selectedSteps track by $index">
                         <td>
-                            <div class="col-md-6">{{ step.name }}</div>
-                            <div class="col-md-5">
-                                <div class="input-group-btn">
-                                    <div class="input-group-btn-vertical">
-                                        <button type="button"><i class="fa fa-caret-up"></i>
-                                        </button>
-                                        <button type="button"><i class="fa fa-caret-down"></i>
-                                        </button>
-                                    </div>
-                                    <button class="btn">-</button>
+                            <div class="col-md-7">{{ step.name }}</div>
+                            <div class="input-group spinner col-md-2">
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn-default btn" type="button"><i class="fa fa-caret-up"></i>
+                                    </button>
+                                    <button class="btn-default btn" type="button"><i class="fa fa-caret-down"></i>
+                                    </button>
                                 </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn" style="width: 36px; height: 36px; text-align: center;"><i
+                                        class="fa fa-minus"></i></button>
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="col-md-4">
+                <h3>Preview of test spec</h3>
                 <textarea class="col-md-12" style="resize: none;" rows="20">aaaaaaaa </textarea><br/>
                 <button ng-click="run_test(currentUser._id)" class="btn btn-primary btn-block">Run</button>
             </div>
