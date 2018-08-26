@@ -91,7 +91,7 @@
                 Gemfile <select title="Gemfile" data-ng-options="g.name for g in userGemfiles"
                                 data-ng-model="selectedGemfile"></select>
                 <br/>
-                <h7>(<a>Add new Gemfile ></a>)</h7>
+                <h7>(<a href="#newGemfile">Add new Gemfile ></a>)</h7>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
         <div class="row">
             <div class="col-md-4" style="border-right: 1px dashed #333;">
                 <h3>Available steps</h3>
-                <h7>(<a>Add new step ></a>)</h7>
+                <h7>(<a href="#newStep">Add new step ></a>)</h7>
                 <table class="table col-md-12">
                     <tr ng-repeat="step in userSteps">
                         <td>
@@ -141,7 +141,7 @@
             </div>
             <div class="col-md-4">
                 <h3>Preview of test spec</h3>
-                <textarea class="col-md-12" style="resize: none;" rows="20">aaaaaaaa </textarea><br/>
+                <textarea class="col-md-12" style="resize: none;" rows="20" readonly>{{ stepsContent }} </textarea><br/>
                 <button ng-click="run_test(currentUser._id)" class="btn btn-primary btn-block">Run</button>
             </div>
         </div>

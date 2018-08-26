@@ -15,6 +15,7 @@
         $scope.deleteStepFromSelected = deleteStepFromSelected;
         $scope.moveStepUp = moveStepUp;
         $scope.moveStepDown = moveStepDown;
+        $scope.stepsContent = stepsContent;
 
         let selectedStepsArray = [];
 
@@ -74,14 +75,13 @@
                             "test_run_name":"${$scope.runName}",
                             "gemfile_id":"${$scope.selectedGemfile['_id']}",
                             "gemfile_content":"${escape($scope.selectedGemfile['content'])}",
-                            "step_content":"${escape($scope.selectedStep['content'])}",
+                            "step_content":"${escape(getSelectedStepsContent())}",
                             "device_id":"${$scope.selectedDevice['_id']}",
                             "device_port":"${$scope.selectedDevice['appiumPort']}",
                             "deviceName":"${$scope.selectedDevice['name']}",
                             "udid": "${$scope.selectedDevice['udid']}"
                             
                         }`;
-            console.log(json);
             CommandService
                 .run_test(json)
         }
@@ -89,6 +89,7 @@
         function addTestStepToSelected(step) {
             selectedStepsArray.push(step);
             $scope.selectedSteps = selectedStepsArray;
+            stepsContent();
         }
 
         function deleteStepFromSelected(step) {
@@ -97,32 +98,48 @@
             if (index !== -1) {
                 selectedStepsArray.splice(index, 1);
             }
+            stepsContent()
         }
 
         function moveStepUp(step) {
             const index = selectedStepsArray.indexOf(step);
 
-            if (index > 0)
-            {
-                let tempElement = selectedStepsArray[index-1];
-                selectedStepsArray[index-1] = step;
+            if (index > 0) {
+                let tempElement = selectedStepsArray[index - 1];
+                selectedStepsArray[index - 1] = step;
                 selectedStepsArray[index] = tempElement;
             }
+            stepsContent()
         }
 
         function moveStepDown(step) {
             const index = selectedStepsArray.indexOf(step);
 
-            if (index < selectedStepsArray.length-1)
-            {
-                let tempElement = selectedStepsArray[index+1];
-                selectedStepsArray[index+1] = step;
+            if (index < selectedStepsArray.length - 1) {
+                let tempElement = selectedStepsArray[index + 1];
+                selectedStepsArray[index + 1] = step;
                 selectedStepsArray[index] = tempElement;
             }
+            stepsContent()
+        }
+
+        function getSelectedStepsContent() {
+            let stepsContent = "";
+
+            for (let s of $scope.selectedSteps) {
+                stepsContent += `it '${s['name']}' do \n`;
+                stepsContent += `   ${s['content']}\n`;
+                stepsContent += `end\n`;
+            }
+
+            return stepsContent;
+        }
+
+        function stepsContent() {
+            $scope.stepsContent = getSelectedStepsContent();
         }
 
         function selectedSteps() {
-            console.log("Called SS");
             $scope.selectedSteps = selectedStepsArray;
         }
     }
