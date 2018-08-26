@@ -12,6 +12,9 @@
         $scope.runName = "default";
         $scope.selectedSteps = selectedSteps;
         $scope.addTestStepToSelected = addTestStepToSelected;
+        $scope.deleteStepFromSelected = deleteStepFromSelected;
+        $scope.moveStepUp = moveStepUp;
+        $scope.moveStepDown = moveStepDown;
 
         let selectedStepsArray = [];
 
@@ -84,13 +87,42 @@
         }
 
         function addTestStepToSelected(step) {
-            selectedStepsArray.push(step)
+            selectedStepsArray.push(step);
             $scope.selectedSteps = selectedStepsArray;
-            console.log(selectedStepsArray);
+        }
+
+        function deleteStepFromSelected(step) {
+            const index = selectedStepsArray.indexOf(step);
+
+            if (index !== -1) {
+                selectedStepsArray.splice(index, 1);
+            }
+        }
+
+        function moveStepUp(step) {
+            const index = selectedStepsArray.indexOf(step);
+
+            if (index > 0)
+            {
+                let tempElement = selectedStepsArray[index-1];
+                selectedStepsArray[index-1] = step;
+                selectedStepsArray[index] = tempElement;
+            }
+        }
+
+        function moveStepDown(step) {
+            const index = selectedStepsArray.indexOf(step);
+
+            if (index < selectedStepsArray.length-1)
+            {
+                let tempElement = selectedStepsArray[index+1];
+                selectedStepsArray[index+1] = step;
+                selectedStepsArray[index] = tempElement;
+            }
         }
 
         function selectedSteps() {
-            console.log("Called SS")
+            console.log("Called SS");
             $scope.selectedSteps = selectedStepsArray;
         }
     }

@@ -124,14 +124,15 @@
                             <div class="col-md-7">{{ step.name }}</div>
                             <div class="input-group spinner col-md-2">
                                 <div class="input-group-btn-vertical">
-                                    <button class="btn-default btn" type="button"><i class="fa fa-caret-up"></i>
+                                    <button  ng-click="moveStepUp(step)" class="btn-default btn" type="button"><i class="fa fa-caret-up"></i>
                                     </button>
-                                    <button class="btn-default btn" type="button"><i class="fa fa-caret-down"></i>
+                                    <button  ng-click="moveStepDown(step)" class="btn-default btn" type="button"><i class="fa fa-caret-down"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn" style="width: 36px; height: 36px; text-align: center;"><i
+                                <button ng-click="deleteStepFromSelected(step)" class="btn"
+                                        style="width: 36px; height: 36px; text-align: center;"><i
                                         class="fa fa-minus"></i></button>
                             </div>
                         </td>

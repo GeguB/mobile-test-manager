@@ -7,8 +7,8 @@
     {{message}}
 </div>
 <form>
-    <input  ng-model="step.name"  class="form-control" placeholder="Name"/>
-    <input  ng-model="step.applicationName"  class="form-control" placeholder="Application name"/>
-    <textarea rows="5"  ng-model="step.content" class="form-control" placeholder="Content"/></textarea>
+    Name of step<br/><input  ng-model="step.name"  class="form-control" placeholder="Name"/>
+    <br/>Application name<br/><input  ng-model="step.applicationName"  class="form-control" placeholder="Application name"/>
+    <br/>Content<br/><textarea rows="5"  ng-model="step.content" class="form-control" placeholder="Content"/></textarea>
     <button ng-click="newStep(step, currentUser._id)" class="btn btn-primary btn-block">Add</button><br/>
 </form>

@@ -7,6 +7,8 @@ module.exports = function() {
             command: String,
             executedBy: String,
             executionDate: Date,
+            deviceID: String,
+            testRunName: String,
             status: String,
             exit_code: String,
             stdout: String,
@@ -19,6 +21,7 @@ module.exports = function() {
     var api = {
         addCommand: addCommand,
         updateCommand: updateCommand,
+        getQueueByDeviceID: getQueueByDeviceID,
         findCommandByUser: findCommandByUser,
         findCommandById: findCommandById,
         getMongooseModel: getMongooseModel
@@ -41,8 +44,12 @@ module.exports = function() {
         return CommandModel;
     }
 
+    function getQueueByDeviceID(deviceID) {
+        return CommandModel.where({status: "In Queue"}).where({deviceID: deviceID}).find().sort({executionDate: -1})
+    }
+
     function findCommandById(userId) {
         return CommandModel.findById(userId);
     }
 
-}
+};

@@ -5,6 +5,7 @@ module.exports = function(app) {
 
     app.post('/api/add/gemfile', addGemfile);
     app.get('/api/gemfiles', findGemfilesByUserID);
+    app.get('/api/gemfile', findGemfileByGemfileID);
 
     function addGemfile(req, res) {
         let newGemfile = req.body;
@@ -25,4 +26,17 @@ module.exports = function(app) {
                 }
             )
     }
+
+    function findGemfileByGemfileID(req, res) { //not tested
+        gemfileModel.findGemfileByGemfileID(req.query.gemfileID)
+            .then(
+                function (gemfile) {
+                    res.json(gemfile);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
 };
